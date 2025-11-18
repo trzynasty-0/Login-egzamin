@@ -17,7 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText emailInput, hasloInput1, hasloInput2;
     private TextView emailView;
-    private Button zatwierdzButton, generujButton;
+    private TextView dlugoscView, cyfryView, znakiView, mLiteryView, dLiteryView;
+    private Button zatwierdzButton, generujButton, mocHalsaButton;
+    private boolean czyPoprawne = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +37,35 @@ public class MainActivity extends AppCompatActivity {
         hasloInput2 = findViewById(R.id.haslo2);
         emailView = findViewById(R.id.emailView);
         zatwierdzButton = findViewById(R.id.zatwierdz);
+        dlugoscView = findViewById(R.id.dlugosc);
+        znakiView = findViewById(R.id.znaki);
+        mLiteryView = findViewById(R.id.mLitery);
+        dLiteryView = findViewById(R.id.dLitery);
+        cyfryView = findViewById(R.id.cyfry);
+        mocHalsaButton = findViewById(R.id.moc);
 
         zatwierdzButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         EmailSprawdzenie(emailInput.getText().toString(), hasloInput1.getText().toString(), hasloInput2.getText().toString());
+                    }
+                }
+        );
+
+        mocHalsaButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mocHaslaSprawdzenie();
+                    }
+                }
+        );
+        generujButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
                     }
                 }
         );
@@ -54,6 +80,61 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             emailView.setText("Hello" + email);
+            czyPoprawne = true;
         }
+    }
+    String alfabet = "abcdefghijklmnopqrstuvwxyz";
+    String cyfry = "1234567890";
+    String znaki = "!@#$%^&*.,";
+    private void mocHaslaSprawdzenie(){
+        for(int i = 0; i < hasloInput1.getText().toString().length(); i++){
+            if(alfabet.toUpperCase().contains(Character.toString(hasloInput1.getText().toString().charAt(i)))){
+                dLiteryView.setTextColor(getColor(R.color.poprawne));
+                i = hasloInput1.getText().toString().length();
+            }
+            else{
+                dLiteryView.setTextColor(getColor(R.color.niepoprawne));
+
+            }
+        }
+        for(int i = 0; i < hasloInput1.getText().toString().length(); i++){
+            if(alfabet.contains(Character.toString(hasloInput1.getText().toString().charAt(i)))){
+                mLiteryView.setTextColor(getColor(R.color.poprawne));
+                i = hasloInput1.getText().toString().length();
+            }
+            else{
+                mLiteryView.setTextColor(getColor(R.color.niepoprawne));
+
+            }
+        }
+        for(int i = 0; i < hasloInput1.getText().toString().length(); i++){
+            if(cyfry.contains(Character.toString(hasloInput1.getText().toString().charAt(i)))){
+                cyfryView.setTextColor(getColor(R.color.poprawne));
+                i = hasloInput1.getText().toString().length();
+            }
+            else{
+                cyfryView.setTextColor(getColor(R.color.niepoprawne));
+
+            }
+        }
+        for(int i = 0; i < hasloInput1.getText().toString().length(); i++){
+            if(znaki.contains(Character.toString(hasloInput1.getText().toString().charAt(i)))){
+                znakiView.setTextColor(getColor(R.color.poprawne));
+                i = hasloInput1.getText().toString().length();
+            }
+            else{
+                znakiView.setTextColor(getColor(R.color.niepoprawne));
+
+            }
+        }
+        if(hasloInput1.getText().toString().length() > 12){
+            dlugoscView.setTextColor(getColor(R.color.poprawne));
+
+        }
+        else{
+            dlugoscView.setTextColor(getColor(R.color.niepoprawne));
+
+        }
+
     }
 }

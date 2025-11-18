@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#008080</color>
+    <color name="poprawne">#098000</color>
+    <color name="niepoprawne">#800000</color>
 </resources>
